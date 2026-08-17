@@ -19,6 +19,8 @@ namespace CVRGoesBrrr
           : base(name, ownerType, gameObject, meshObject, mesh)
         {
             mLight0 = light;
+            // DPS puts the length in the tip light's intensity
+            mDeclaredLength = light != null ? light.intensity : 0f;
             this.Enabled = false;
         }
 
