@@ -17,13 +17,19 @@ namespace CVRGoesBrrr
         public GameObject mMeshObject;
         public Mesh mMesh;
 
+        // DPS states the length in the tip light's intensity, in metres. 0 if unset.
+        public float mDeclaredLength;
+
         public float Length
         {
             get
             {
                 float forwardMagnitude = mMeshObject.transform.TransformVector(Vector3.forward).magnitude;
                 //Util.DebugLog("Giver is on Layer="+this.mMeshObject.layer);
-                return mBaseLength * forwardMagnitude;
+                float meshLength = mBaseLength * forwardMagnitude;
+                // The mesh found above may not be the penetrator, so bound it.
+                if (mDeclaredLength > 0f) return Math.Min(meshLength, mDeclaredLength);
+                return meshLength;
             }
         }
 
