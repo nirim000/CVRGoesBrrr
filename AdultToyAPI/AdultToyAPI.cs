@@ -395,15 +395,7 @@ namespace AdultToyAPI
         {
             DebugLog("Settings Updated");
             UseEmbeddedCLI = MelonPreferences.GetEntryValue<bool>(BuildInfo.Name, "UseEmbeddedCLI");
-            string newIntifaceServerURI = MelonPreferences.GetEntryValue<string>(BuildInfo.Name, "IntifaceServerURI");
-            if(string.IsNullOrEmpty(newIntifaceServerURI) || string.Equals(newIntifaceServerURI, "null",StringComparison.InvariantCultureIgnoreCase))
-            {
-                newIntifaceServerURI = "ws:\\localhost"; // attempting to work around an issue where mellon preferences may not initialize correctly
-            }
-            if(!string.Equals(IntifaceServerURI,newIntifaceServerURI))
-            {
-                Task t = Buttplug.DisconnectAsync();
-            }
+            IntifaceServerURI = MelonPreferences.GetEntryValue<string>(BuildInfo.Name, "IntifaceServerURI");
             SecondsBetweenConnectionAttempts = MelonPreferences.GetEntryValue<int>(BuildInfo.Name, "SecondsBetweenConnectionAttempts");
             DeviceCommandTimeInterval = MelonPreferences.GetEntryValue<int>(BuildInfo.Name, "DeviceCommandTimeInterval");
             DeviceCommandTimeInterval = Clamp(DeviceCommandTimeInterval, 1, 100);
